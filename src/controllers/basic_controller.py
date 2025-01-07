@@ -83,6 +83,11 @@ class BasicMAC:
 
         inputs = th.cat([x.reshape(bs, self.n_agents, -1) for x in inputs], dim=-1)
         return inputs
+    
+    def _build_states(self, batch, t):
+        states = batch['state'][t]
+        return states
+
 
     def _get_input_shape(self, scheme):
         input_shape = scheme["obs"]["vshape"]
