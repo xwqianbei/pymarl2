@@ -28,6 +28,7 @@ class LLMMAC(BasicMAC):
 
         # TODO: check the curr_states and role_one_hot dimensions
         curr_states = self._build_states(ep_batch, t)
+        # TODO: 对齐调整后的参数
         role_one_hot = SC2_select_role(curr_states, self.args.role_num)
 
         agent_outs, self.hidden_states = self.agent(agent_inputs, self.hidden_states, role_one_hot)

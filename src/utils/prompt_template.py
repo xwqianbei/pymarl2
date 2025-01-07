@@ -32,9 +32,9 @@ Please respond in the following JSON format:\n" + \
     },
 }
 """
-    def get_message(self):
+    def get_message(self, env_states):
         message=[]
         message.append({'role':'system', 'content':self.task_description + self.state_form + self.role_instruction})
-        message.append({'role':'user', 'content':f"Task is {self.map_name}. The map config is {str(self.map_config)}."})
+        message.append({'role':'user', 'content':f"Task is {self.map_name}. The map config is {str(self.map_config)}.\ncurrent_state is {env_states}."})
         return message
 
