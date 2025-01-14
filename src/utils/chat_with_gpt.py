@@ -23,7 +23,7 @@ def gpt_json_load(json_str):
 
 def save_gpt_response_detail(states, gpt_response, refine_response):
     content = {
-        'states': states,
+        'states': str(states),
         'gpt_response': gpt_response,
         'refine_response': refine_response
     }
