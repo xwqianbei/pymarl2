@@ -21,6 +21,14 @@ def gpt_json_load(json_str):
         json_data = json.loads(json.dumps(python_data))
     return json_data
 
+def save_gpt_response_detail(states, gpt_response, refine_response):
+    content = {
+        'states': states,
+        'gpt_response': gpt_response,
+        'refine_response': refine_response
+    }
+    with open('data/response_detail.json', 'a', encoding='utf-8') as f:
+        f.write(json.dumps(content, ensure_ascii=False) + '\n')
 
 def call_openai(model, messages, temperature=0.7, response_format=None):
     openai.api_key = os.getenv("ONE_API_KEY")
@@ -46,9 +54,10 @@ def callgpt(env_name, map_name, env_states, num_agent):
     temperature = 0.7
     
     message = prompt.get_message(env_states)
-    response = call_openai(model, message, temperature, response_format={"type": "json_object"})
-    response = parse_response(response, num_agent)    
-    return response
+    gpt_response = call_openai(model, message, temperature, response_format={"type": "json_object"})
+    refine_response = parse_response(gpt_response, num_agent)
+    save_gpt_response_detail(env_states, gpt_response, refine_response)    
+    return refine_response
     
 
 def parse_response(response, num_agent):
