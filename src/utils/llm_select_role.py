@@ -5,7 +5,7 @@ from .chat_with_gpt import callgpt
 class SC2_select_role(object):
     # TODO: add num_agent
     def __init__(self, env_name, map_name, num_agent, role_num):
-        self.env_num = env_name
+        self.env_name = env_name
         self.map_name = map_name
         self.num_agent = num_agent
         self.role_num = role_num

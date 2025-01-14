@@ -34,7 +34,7 @@ class LLMMAC(BasicMAC):
         # [env_name, map_name, num_agent, role_num]
         env_fn = env_REGISTRY[self.args.env]
         env = env_fn(**self.args.env_args)
-        role_selector = SC2_select_role(self.args.env, self.args.env_args.map_name, env.n_agents, self.args.role_num)
+        role_selector = SC2_select_role(self.args.env, self.args.env_args['map_name'], env.n_agents, self.args.role_num)
         
         role_one_hot = role_selector(curr_states)
         agent_outs, self.hidden_states = self.agent(agent_inputs, self.hidden_states, role_one_hot)
