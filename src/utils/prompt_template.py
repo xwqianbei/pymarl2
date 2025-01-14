@@ -15,26 +15,37 @@ relative_y_to_map_center, shield_rate(1 dimension if a_race is P else 0 dimensio
 nf_en represents the unit state for each enemy with attributes [health_rate, relative_x_to_map_center, \
 relative_y_to_map_center, shield_rate(1 dimension if b_race in map config is P else 0 dimension), unit_type_bits(the dimension is defined in the map config)]. \
 The last_actions doesn't require consideration.\n"
-        self.role_instruction = f"Your role is to assign dynamic roles (e.g., Attacker, Supporter, Scout, etc.) to each agent based on the current state. Please adhere to the following guidelines:\n\
+        self.role_instruction = f"Your role is to dynamically assign one of the following skills to the agent based on the current state:\n\
+1. Focus Fire 2. Retreat 3. Spread Out 4. Advance \n\
+Please adhere to the following guidelines:\n\
 1. Use only the given state information and  without relying on any unspecified details!\n\
-2. Assign roles that align with the battlefield context and the current state of each agent or enemy.\n\
-3. The roles may include predefined roles such as 'attacker', 'supporter', and 'scout' or can involve other context-driven roles that you define.\n \
-4. Provide clear conditions for assigning each role!\n\
-5. Provide the thought process for assigning roles to each agent.\n\
-6. Provide exclusively a JSON-formatted string compatible with Python's json.loads for parsing. Avoid any extra text or outputs.\n\
+2. Assign skills that align with the battlefield context and the current state of each agent or enemy.\n\
+3. Provide clear conditions for assigning each skill!\n\
+4. Provide the thought process for assigning skills to each agent.\n\
+5. Provide exclusively a JSON-formatted string compatible with Python's json.loads for parsing. Avoid any extra text or outputs.\n\
 Please respond in the following JSON format:\n" + \
 """
-{
-    'agentID':{
-        'role': 'role_name',
-        'conditions': 'the conditions for assigning each role.',
-        'thought_process': 'the thought process for assigning roles to each agent.',
+[
+    {
+        'agentID': '0',
+        'skill': 'Focus Fire',
+        'conditions': 'the conditions for assigning each skill.',
+        'thought_process': 'the thought process for assigning skills to each agent.',
     },
-}
+    {
+        'agentID': '1',
+        'skill': 'Advance',
+        'conditions': 'the conditions for assigning each skill.',
+        'thought_process': 'the thought process for assigning skills to each agent.',
+    },
+    ...
+]
 """
     def get_message(self, env_states):
         message=[]
         message.append({'role':'system', 'content':self.task_description + self.state_form + self.role_instruction})
         message.append({'role':'user', 'content':f"Task is {self.map_name}. The map config is {str(self.map_config)}.\ncurrent_state is {env_states}."})
         return message
+    
+
 

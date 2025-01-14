@@ -5,11 +5,12 @@ import torch as th
 from utils.rl_utils import RunningMeanStd
 import numpy as np
 from utils.llm_select_role import SC2_select_role
+from envs import REGISTRY as env_REGISTRY
 
 
 class LLMMAC(BasicMAC):
     def __init__(self, scheme, groups, args):
-        super(LLMMAC, self).__init__(scheme, groups, args):
+        super(LLMMAC, self).__init__(scheme, groups, args)
     
     def select_actions(self, ep_batch, t_ep, t_env, bs=slice(None), test_mode=False):
         # Only select actions for the selected batch elements in bs
@@ -29,8 +30,13 @@ class LLMMAC(BasicMAC):
         # TODO: check the curr_states and role_one_hot dimensions
         curr_states = self._build_states(ep_batch, t)
         # TODO: 对齐调整后的参数
-        role_one_hot = SC2_select_role(curr_states, self.args.role_num)
-
+        
+        # [env_name, map_name, num_agent, role_num]
+        env_fn = env_REGISTRY[self.args.env]
+        env = env_fn(**self.args.env_args)
+        role_selector = SC2_select_role(self.args.env, self.args.env_args.map_name, env.n_agents, self.args.role_num)
+        
+        role_one_hot = role_selector(curr_states)
         agent_outs, self.hidden_states = self.agent(agent_inputs, self.hidden_states, role_one_hot)
         
         return agent_outs

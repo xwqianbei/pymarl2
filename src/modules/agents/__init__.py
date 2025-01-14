@@ -20,4 +20,4 @@ REGISTRY["central_rnn"] = CentralRNNAgent
 REGISTRY["mlp"] = MLPAgent
 REGISTRY["att_rnn"] = ATTRNNAgent
 REGISTRY["noisy_rnn"] = NoisyRNNAgent
-REGISTRY["llm_policy"] = LLMAgent
+REGISTRY["llm_rnn"] = LLMAgent
