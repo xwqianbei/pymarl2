@@ -156,9 +156,16 @@ bash install_gfootball.sh
 
 **Run an experiment**
 
+### vllm inference build
+- vllm环境构建和模型下载参考： https://www.cnblogs.com/KubeExplorer/p/1856065
+```shell
+sh vllm_inference/run.sh
+```
+
+
 ```shell
 # For SMAC
-python3 src/main.py --config=qmix --env-config=sc2 with env_args.map_name=corridor
+python3 src/main.py --config=llm_qmix --env-config=sc2 with env_args.map_name=2s3z
 ```
 
 ```shell

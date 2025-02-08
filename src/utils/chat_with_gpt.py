@@ -41,6 +41,30 @@ def call_openai(model, messages, temperature=0.7, response_format=None):
     )
     return response.choices[0].message.content
 
+"""
+curl http://localhost:8010/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+        "model": "qwen",
+        "messages": [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": "你是谁？"}
+        ]
+    }
+'"""
+def call_qwen(messages, model='qwen', response_format=None):
+    url = "http://localhost:8010/v1/chat/completions"
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = {
+        "model": model,
+        "messages": messages,
+        "response_format": response_format
+    }
+    response = requests.post(url, headers=headers, json=data)
+    return response.json()['choices'][0]['message']['content']
+
 
 def callgpt(env_name, map_name, env_states, num_agent):
     if 'sc2' in env_name:
@@ -54,7 +78,8 @@ def callgpt(env_name, map_name, env_states, num_agent):
     temperature = 0.7
     
     message = prompt.get_message(env_states)
-    gpt_response = call_openai(model, message, temperature, response_format={"type": "json_object"})
+    # gpt_response = call_openai(model, message, temperature, response_format={"type": "json_object"})
+    gpt_response = call_qwen(message, model='qwen', response_format={"type": "json_object"})
     refine_response = parse_response(gpt_response, num_agent)
     save_gpt_response_detail(env_states, gpt_response, refine_response)    
     return refine_response

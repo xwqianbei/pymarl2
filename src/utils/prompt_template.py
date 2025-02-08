@@ -22,7 +22,7 @@ Please adhere to the following guidelines:\n\
 2. Assign skills that align with the battlefield context and the current state of each agent or enemy.\n\
 3. Provide clear conditions for assigning each skill!\n\
 4. Provide the thought process for assigning skills to each agent.\n\
-5. Provide exclusively a JSON-formatted string compatible with Python's json.loads for parsing. Avoid any extra text or outputs.\n\
+5. Provide exclusively a JSON-formatted string. Avoid any extra text or outputs.\n\
 Please respond in the following JSON format:\n" + \
 """
 [
