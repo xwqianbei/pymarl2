@@ -8,7 +8,7 @@ import numpy as np
 # TODO: fix code
 class LLMMAC(BasicMAC):
     def __init__(self, scheme, groups, args):
-        super(NMAC, self).__init__(scheme, groups, args)
+        super(LLMMAC, self).__init__(scheme, groups, args)
         
     def select_actions(self, ep_batch, t_ep, t_env, bs=slice(None), test_mode=False):
         # Only select actions for the selected batch elements in bs

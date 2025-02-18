@@ -7,6 +7,7 @@ from .conv_controller import ConvMAC
 from .basic_central_controller import CentralBasicMAC
 from .lica_controller import LICAMAC
 from .dop_controller import DOPMAC
+from .llm_controller import LLMMAC
 
 
 
@@ -17,3 +18,4 @@ REGISTRY["conv_mac"] = ConvMAC
 REGISTRY["basic_central_mac"] = CentralBasicMAC
 REGISTRY["lica_mac"] = LICAMAC
 REGISTRY["dop_mac"] = DOPMAC
+REGISTRY["llm_mac"] = LLMMAC
