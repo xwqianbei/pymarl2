@@ -45,6 +45,9 @@ class LLMAgent(nn.Module):
             nn.Linear(args.role_emb_dec_hid_dim, args.n_actions)
         )
 
+    def init_hidden(self):
+        return self.fc1.weight.new(1, self.args.rnn_hidden_dim).zero_()
+
 
     def forward(self, inputs, agent_hid_in, role_embedding):
         """forward pass of the agent
