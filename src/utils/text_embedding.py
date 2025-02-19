@@ -9,9 +9,9 @@ def text_embedding(role_desc_set, model_path):
 
 if __name__ == '__main__':
     role_desc_set = ["Focus Fire", "Retreat", "Spread Out", "Advance", "Dead"]
-    model_path = './bge-base-en-v1___5'
+    model_path = 'C:/Users/xw/Desktop/workspace/pymarl2/model/BAAI/bge-base-en-v1___5'
     role_embeddings = text_embedding(role_desc_set, model_path)
-    print(len(role_embeddings), role_embeddings[0].shape, type(role_embeddings[0]))
+    print(len(role_embeddings), role_embeddings[0], type(role_embeddings[0]))
 
 
 

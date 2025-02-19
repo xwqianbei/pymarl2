@@ -53,3 +53,7 @@ embedding_model_path: "C:/Users/xw/Desktop/workspace/pymarl2/model"
 # module.agent:
 role_embedding_dim: 768
 role_emb_dec_hid_dim: 256
+
+# model.layer.role_selector:
+role_sel_hid_dim: 256
+role_change_interval: 10
