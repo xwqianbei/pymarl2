@@ -5,9 +5,12 @@ from utils.
 
 
 class RoleSelector(nn.Module):
-    """
-    To assign a role to each agent in the team
-    And return the role embedding of the role
+    """To assign a role to each agent in the team, And return the role embedding of the role
+    
+        Attributes:
+            input_shape: the agent observations shape
+            role_embeddings: the role embeddings of the agents
+            args: get from the algs config.yaml
     """
 
     def __init__(self, input_shape, role_embeddings, args):
