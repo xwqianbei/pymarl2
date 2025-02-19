@@ -46,6 +46,10 @@ return_priority: False
 
 name: "qmix_env=8_adam_td_lambda"
 
-
+# utils
 role_desc_set: ["Focus Fire", "Retreat", "Spread Out", "Advance", "Dead"]
 embedding_model_path: "C:/Users/xw/Desktop/workspace/pymarl2/model"
+
+# module.agent:
+role_embedding_dim: 768
+role_emb_dec_hid_dim: 256
