@@ -3,7 +3,7 @@ from components.episode_buffer import EpisodeBatch
 from modules.mixers.nmix import Mixer
 from modules.mixers.vdn import VDNMixer
 from modules.mixers.qatten import QattenMixer
-from modules.layer.role_selector import RoleSelector
+# from modules.layer.role_selector import RoleSelector
 from modules.layer.traj_hid_alignment import Traj_hid_alignment
 from envs.matrix_game import print_matrix_status
 from utils.rl_utils import build_td_lambda_targets, build_q_lambda_targets
@@ -11,7 +11,9 @@ import torch as th
 from torch.optim import RMSprop, Adam
 import numpy as np
 from utils.th_utils import get_parameters_num
-from utils.text_embedding import text_embedding
+from utils.text_embedding import TextEmbedding
+
+from controllers.role_controller import RoleController
 class LLMLearner:
     """The learner to train the llm agent
 
@@ -54,11 +56,29 @@ class LLMLearner:
         print('Mixer Size: ')
         print(get_parameters_num(self.mixer.parameters()))
 
+        # TODO: add the role_selector/traj_hid_alignment/role_embeddings
+        # get the role_selector
+        self.role_controller = RoleController(scheme, args)
+        self.role_params = list(self.role_controller.parameters())
+
+        # get the traj_hid_alignment
+        self.traj_hid_alignment = Traj_hid_alignment(args)
+        # TODO: check the optimizer how to do
+        self.params += list(self.traj_hid_alignment.parameters())
+
+        # get the candidate role embeddings
+        self.text_emb = TextEmbedding(self.args.embedding_model_path)
+        self.role_embeddings = self.text_emb.embedding_text(self.args.role_desc_set)
+        self.role_embedding = None
+
+        # TODO: check the role_optimizer
         if self.args.optimizer == 'adam':
             self.optimiser = Adam(params=self.params,  lr=args.lr, weight_decay=getattr(args, "weight_decay", 0))
+            self.role_optimizer = Adam(params=self.role_params, lr=args.lr, weight_decay=getattr(args, "weight_decay", 0))
         else:
             self.optimiser = RMSprop(params=self.params, lr=args.lr, alpha=args.optim_alpha, eps=args.optim_eps)
-
+            self.role_optimizer = RMSprop(params=self.role_params, lr=args.lr, alpha=args.optim_alpha, eps=args.optim_eps)
+        
         # a little wasteful to deepcopy (e.g. duplicates action selector), but should work for any MAC
         self.target_mac = copy.deepcopy(mac)
         self.log_stats_t = -self.args.learner_log_interval - 1
@@ -71,16 +91,8 @@ class LLMLearner:
             self.priority_max = float('-inf')
             self.priority_min = float('inf')
         
-        # TODO: add the role_selector/traj_hid_alignment/role_embeddings
-        # get the role_selector
-        self.role_selector = RoleSelector(args.rnn_hidden_dim, args)
+       
 
-        # get the traj_hid_alignment
-        self.traj_hid_alignment = Traj_hid_alignment(args)
-
-        # get the candidate role embeddings
-        self.role_embeddings = text_embedding(self.args.role_desc_set, self.args.embedding_model_path)
-        
     def train(self, batch: EpisodeBatch, t_env: int, episode_num: int, per_weight=None):
         # Get the relevant quantities
         rewards = batch["reward"][:, :-1]
@@ -97,32 +109,44 @@ class LLMLearner:
 
         # TODO: record info to caculate the loss
         # Assign roles to agents
-        self.role_selector.train()
-        role_selector_prob_outs = []
+        self.role_controller.train()
+        self.role_controller.init_hidden(batch.batch_size)
+
+        self.traj_hid_alignment.train()
+
+        role_probs = []
         role_llm_labels = []
 
         # record the trajectory hidden states
         traj_hidden_states = []
-        traj_hid_align_out = []
+        traj_hid_align_outs = []
         traj_llm_thoughts = []
         traj_llm_embs = []
 
         # TODO: add the llm labels, llm thoughts, llm embs
         for t in range(batch.max_seq_length):
-            agent_outs, traj_hidden_state = self.mac.forward(batch, t=t)
+            role_prob = self.role_controller.forward(batch)
+            role_probs.append(role_prob)
             if t % self.args.role_change_interval == 0:
-                # record to train the role_selector
-                role_selector_prob_out = self.role_selector(traj_hidden_state)
-                role_selector_prob_outs.append(role_selector_prob_out)
-                role_llm_labels.append()
+                role_indices = th.argmax(role_prob, dim = -1)
+                self.role_embedding = self.role_embeddings[role_indices]
+                
+                role_llm_label = []
+                role_llm_labels.append(role_llm_label)
 
-                # record to train the trajectory encoder
-                traj_hidden_states.append(traj_hidden_state)
-                traj_hid_align_out.append(self.traj_hid_alignment(traj_hidden_state))
-                traj_llm_thoughts.append()
-                traj_llm_embs.append()
+                traj_llm_thought = []
+                traj_llm_thoughts.append(traj_llm_thought)
 
+                traj_llm_emb = self.text_emb.embedding_text(traj_llm_thought)
+                traj_llm_embs.append(traj_llm_emb)
+
+            agent_outs, traj_hidden_state = self.mac.forward(batch, t, self.role_embedding)
             mac_out.append(agent_outs)
+            if t != 0 and t % self.args.role_change_interval == 0:
+                traj_hidden_states.append(traj_hidden_state)
+                traj_hid_align_out = self.traj_hid_alignment(traj_hidden_state)
+                traj_hid_align_outs.append(traj_hid_align_out)
+
         mac_out = th.stack(mac_out, dim=1)  # Concat over time
 
         # Pick the Q-Values for the actions taken by each agent
@@ -178,6 +202,10 @@ class LLMLearner:
         # 1. role selector loss
         # 2. trajectory hidden alignment loss
         loss = L_td = masked_td_error.sum() / mask.sum()
+        # TODO: calculate entory loss 
+        loss_role_selector = 0
+        # TODO: calculate the mse loss
+        loss_traj_hid_alignment = 0
 
         # Optimise
         self.optimiser.zero_grad()

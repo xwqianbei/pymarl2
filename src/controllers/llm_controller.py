@@ -4,8 +4,8 @@ from .basic_controller import BasicMAC
 import torch as th
 from utils.rl_utils import RunningMeanStd
 import numpy as np
-from modules.layer.role_selector import RoleSelector
-from utils.text_embedding import text_embedding
+# from modules.layer.role_selector import RoleSelector
+# from utils.text_embedding import text_embedding
 
 # TODO: fix code
 class LLMMAC(BasicMAC):
