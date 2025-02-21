@@ -57,3 +57,15 @@ role_emb_dec_hid_dim: 256
 # model.layer.role_selector:
 role_sel_hid_dim: 256
 role_change_interval: 10
+
+# --- Role Selector parameters ---
+role_num: 5
+
+# llm call api
+map_name: "2s3z"
+api_type: "deepseek"
+api_url: ""
+model: "deepseek-ai/DeepSeek-R1"
+deepseek_platform: "gjld"
+rnn_hidden_dim: 64
+num_agent: 5

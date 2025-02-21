@@ -49,6 +49,4 @@ label: "default_label"
 run: "default"
 
 
-# --- Role Selector parameters ---
-role_embedding_dim: 64
-role_num: 4
+

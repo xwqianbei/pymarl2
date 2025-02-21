@@ -12,6 +12,8 @@ from torch.optim import RMSprop, Adam
 import numpy as np
 from utils.th_utils import get_parameters_num
 from utils.text_embedding import TextEmbedding
+from utils.api import Call_API
+from utils.prompt_template import SC2_prompt
 
 from controllers.role_controller import RoleController
 class LLMLearner:
@@ -67,8 +69,10 @@ class LLMLearner:
         self.params += list(self.traj_hid_alignment.parameters())
 
         # get the candidate role embeddings
-        self.text_emb = TextEmbedding(self.args.embedding_model_path)
-        self.role_embeddings = self.text_emb.embedding_text(self.args.role_desc_set)
+        self.prompter = SC2_prompt(map_name=args.map_name)
+        self.llmer = Call_API(args)
+        self.text_ember = TextEmbedding(self.args.embedding_model_path)
+        self.role_embeddings = self.text_ember.embedding_text(self.args.role_desc_set)
         self.role_embedding = None
 
         # TODO: check the role_optimizer
@@ -90,8 +94,46 @@ class LLMLearner:
         if self.use_per:
             self.priority_max = float('-inf')
             self.priority_min = float('inf')
-        
-       
+
+    def role2onehot(self, role_str: str)->th.Tensor:
+        """Convert the role string to one hot tensor
+            Args:
+                role_str: the role string
+            Returns:
+                onehot: the one hot tensor of the role string
+        """
+        onehot = th.zeros(self.args.role_num)
+        onehot[self.args.role_desc_set.index(role_str)] = 1
+        return onehot
+
+    # TODO: fix the args.num_agetnts
+    def llm_labeler(self, batch, t):
+        """Assign roles to agents
+            Args:
+                batch: the batch of the episode
+                t: the time step of the episode
+            Returns:
+                role_labels: the role labels of the agents
+                thoughts_emb: the embedding of the thoughts
+                thoughts_str: the thoughts of the agents
+        """
+        states = batch["state"][:, t] # [bs, state_dim]
+        states_np = states.detach().cpu().numpy() # [bs, state_dim]
+
+        role_labels = [] # [bs, n_agents, role_num]
+        thoughts_str = [] # [bs, n_agents]
+        thoughts_emb = [] # [bs, n_agents, emb_dim]
+        for d in states_np:
+            message = self.prompter.get_prompt(d)
+            response_format = {"type": "text"}
+            # List[dict], keys: agent ID, skill, conditions, thought_process
+            response = self.llmer(message, self.args.num_agents, response_format) # [n_agents]
+            
+            role_labels.append([r["skill"] for r in response])
+            thoughts_str.append([r["thought_process"] for r in response])
+            thoughts_emb.append([self.text_ember.embedding_text(r["thought_process"]) for r in response])
+
+        return th.tensor(role_labels), th.tensor(thoughts_emb), thoughts_str
 
     def train(self, batch: EpisodeBatch, t_env: int, episode_num: int, per_weight=None):
         # Get the relevant quantities
@@ -120,8 +162,8 @@ class LLMLearner:
         # record the trajectory hidden states
         traj_hidden_states = []
         traj_hid_align_outs = []
-        traj_llm_thoughts = []
-        traj_llm_embs = []
+        traj_thought_strs = []
+        traj_thought_embs = []
 
         # TODO: add the llm labels, llm thoughts, llm embs
         for t in range(batch.max_seq_length):
@@ -131,14 +173,10 @@ class LLMLearner:
                 role_indices = th.argmax(role_prob, dim = -1)
                 self.role_embedding = self.role_embeddings[role_indices]
                 
-                role_llm_label = []
+                role_llm_label, traj_thought_emb, traj_thought_str = self.llm_labeler(batch, t)
                 role_llm_labels.append(role_llm_label)
-
-                traj_llm_thought = []
-                traj_llm_thoughts.append(traj_llm_thought)
-
-                traj_llm_emb = self.text_emb.embedding_text(traj_llm_thought)
-                traj_llm_embs.append(traj_llm_emb)
+                traj_thought_embs.append(traj_thought_emb)
+                traj_thought_strs.append(traj_thought_str)
 
             agent_outs, traj_hidden_state = self.mac.forward(batch, t, self.role_embedding)
             mac_out.append(agent_outs)
