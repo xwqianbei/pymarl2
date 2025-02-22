@@ -8,6 +8,7 @@ from modules.layer.traj_hid_alignment import Traj_hid_alignment
 from envs.matrix_game import print_matrix_status
 from utils.rl_utils import build_td_lambda_targets, build_q_lambda_targets
 import torch as th
+import torch.nn as nn
 from torch.optim import RMSprop, Adam
 import numpy as np
 from utils.th_utils import get_parameters_num
@@ -87,13 +88,16 @@ class LLMLearner:
         self.target_mac = copy.deepcopy(mac)
         self.log_stats_t = -self.args.learner_log_interval - 1
         self.train_t = 0
-
+ 
         # priority replay
         self.use_per = getattr(self.args, 'use_per', False)
         self.return_priority = getattr(self.args, "return_priority", False)
         if self.use_per:
             self.priority_max = float('-inf')
             self.priority_min = float('inf')
+
+        self.criterion1 = nn.CrossEntropyLoss()
+        self.criterion2 = nn.MSELoss()
 
     def role2onehot(self, role_str: str)->th.Tensor:
         """Convert the role string to one hot tensor
@@ -241,10 +245,11 @@ class LLMLearner:
         # 2. trajectory hidden alignment loss
         loss = L_td = masked_td_error.sum() / mask.sum()
         # TODO: calculate entory loss 
-        loss_role_selector = 0
+        loss_role_selector = self.criterion1(role_probs, role_llm_labels)
         # TODO: calculate the mse loss
-        loss_traj_hid_alignment = 0
+        loss_traj_hid_alignment = self.criterion2(traj_hid_align_outs, traj_hidden_states)
 
+        # TODO: add the optimizer process
         # Optimise
         self.optimiser.zero_grad()
         loss.backward()
