@@ -248,12 +248,17 @@ class LLMLearner:
         loss_role_selector = self.criterion1(role_probs, role_llm_labels)
         # TODO: calculate the mse loss
         loss_traj_hid_alignment = self.criterion2(traj_hid_align_outs, traj_hidden_states)
+        loss += self.args.weight_alignment * loss_traj_hid_alignment
 
         # TODO: add the optimizer process
         # Optimise
         self.optimiser.zero_grad()
         loss.backward()
         grad_norm = th.nn.utils.clip_grad_norm_(self.params, self.args.grad_norm_clip)
+        self.optimiser.step()
+
+        self.role_optimizer.zero_grad()
+        loss_role_selector.backward()
         self.optimiser.step()
 
         if (episode_num - self.last_target_update_episode) / self.args.target_update_interval >= 1.0:
