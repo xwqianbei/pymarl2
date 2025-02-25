@@ -62,7 +62,7 @@ class LLMLearner:
         # TODO: add the role_selector/traj_hid_alignment/role_embeddings
         # get the role_selector
         self.role_controller = RoleController(scheme, args)
-        self.role_params = list(self.role_controller.parameters())
+        self.role_params = list(self.role_controller.role_selector.parameters())
 
         # get the traj_hid_alignment
         self.traj_hid_alignment = Traj_hid_alignment(args)

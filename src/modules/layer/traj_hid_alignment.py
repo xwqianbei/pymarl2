@@ -13,6 +13,7 @@ class Traj_hid_alignment(nn.Module):
     """
 
     def __init__(self, args):
+        super(Traj_hid_alignment, self).__init__()
         self.decoder = nn.Sequential(
             nn.Linear(args.rnn_hidden_dim, args.role_embedding_dim),
             nn.Tanh()
