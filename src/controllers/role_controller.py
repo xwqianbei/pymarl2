@@ -20,8 +20,8 @@ class RoleController(object):
         input_shape = scheme["state"]["vshape"]
         if args.obs_last_action:
             input_shape += scheme["actions_onehot"]["vshape"][0]
-        if self.obs_agent_id:
-            input_shape += self.n_agents
+        if args.obs_agent_id:
+            input_shape += args.n_agents
 
         self.role_selector = RoleSelector(input_shape, args)
         self.hidden_states = None
