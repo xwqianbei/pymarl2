@@ -18,11 +18,11 @@ t_max: 10050000
 target_update_interval: 200
 
 # use the Q_Learner to train
-mac: "n_mac"
-agent: "llm"
+mac: "llm_mac"
+agent: "llm_agent"
 agent_output_type: q
 
-learner: "nq_learner"
+learner: "llm_learner"
 mixer: "qmix"
 mixing_embed_dim: 32
 hypernet_embed: 64
