@@ -4,6 +4,9 @@ from components.episode_buffer import EpisodeBatch
 from multiprocessing import Pipe, Process
 import numpy as np
 import torch as th
+from utils.text_embedding import TextEmbedding
+from controllers.role_controller import RoleController
+
 
 
 # Based (very) heavily on SubprocVecEnv from OpenAI Baselines
@@ -50,6 +53,11 @@ class ParallelRunner:
         self.scheme = scheme
         self.groups = groups
         self.preprocess = preprocess
+
+        self.text_ember = TextEmbedding(self.args.embedding_model_path)
+        self.role_embeddings = self.text_ember.embedding_text(self.args.role_desc_set)
+        self.role_controller = RoleController(scheme, self.args)
+        self.role_embedding = None
 
     def get_env_info(self):
         return self.env_info
@@ -104,10 +112,17 @@ class ParallelRunner:
 
             # TODO: add the role_embedding
             # 1. Define the self.role_embedding 2. role_selector.forward()
+            with th.no_grad():
+                role_prob = self.role_controller.forward(self.batch)
+                if self.t % self.args.role_update_interval == 0:
+                    role_indices = th.argmax(role_prob, dim = -1)
+                    self.role_embedding = self.role_embeddings[role_indices]
+
+            
             if save_probs:
-                actions, probs = self.mac.select_actions(self.batch, t_ep=self.t, t_env=self.t_env, bs=envs_not_terminated, test_mode=test_mode)
+                actions, probs = self.mac.select_actions(self.batch, t_ep=self.t, t_env=self.t_env, role_embedding = self.role_embedding, bs=envs_not_terminated, test_mode=test_mode)
             else:
-                actions = self.mac.select_actions(self.batch, t_ep=self.t, t_env=self.t_env, bs=envs_not_terminated, test_mode=test_mode)
+                actions = self.mac.select_actions(self.batch, t_ep=self.t, t_env=self.t_env, role_embedding = self.role_embedding, bs=envs_not_terminated, test_mode=test_mode)
                 
             cpu_actions = actions.to("cpu").numpy()
 
