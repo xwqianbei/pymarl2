@@ -27,10 +27,9 @@ class TextEmbedding(object):
 
 if __name__ == '__main__':
     role_desc_set = ["Focus Fire", "Retreat", "Spread Out", "Advance", "Dead"]
-    model_path = 'C:/Users/xw/Desktop/workspace/pymarl2/model/BAAI/bge-base-en-v1___5'
-    role_embeddings = text_embedding(role_desc_set, model_path)
-    print(len(role_embeddings), role_embeddings[0], type(role_embeddings[0]))
-
+    model_path = '/root/pymarl2/model/bge-base-en-v1___5'
+    text_embedder = TextEmbedding(model_path)
+    print(text_embedder.embedding_text(role_desc_set))
 
 
 

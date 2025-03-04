@@ -48,7 +48,7 @@ name: "qmix_env=8_adam_td_lambda"
 
 # utils
 role_desc_set: ["Focus Fire", "Retreat", "Spread Out", "Advance", "Dead"]
-embedding_model_path: "/root/pymarl2/model/bge-base-en-v1.5"
+embedding_model_path: "/root/pymarl2/model/bge-base-en-v1___5"
 
 # module.agent:
 role_embedding_dim: 768
