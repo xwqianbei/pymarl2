@@ -17,9 +17,9 @@ class RoleController(object):
     def __init__(self, scheme, args):
         self.args = args
 
-        input_shape = scheme["state"]["vshape"]
+        input_shape = scheme["obs"]["vshape"]
         if args.obs_last_action:
-            input_shape += scheme["actions_onehot"]["vshape"][0]
+            input_shape += scheme["avail_actions"]["vshape"][0]
         if args.obs_agent_id:
             input_shape += args.n_agents
 

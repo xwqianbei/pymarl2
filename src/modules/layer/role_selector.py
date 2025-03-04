@@ -20,7 +20,7 @@ class RoleSelector(nn.Module):
         self.rnn = nn.GRUCell(args.role_sel_hid_dim, args.role_sel_hid_dim)
         self.fc2 = nn.Linear(args.role_sel_hid_dim, args.role_num)
 
-    def init_hidden(self, batch_size):
+    def init_hidden(self):
         return self.fc1.weight.new(1, self.args.role_sel_hid_dim).zero_()
 
     def forward(self, inputs, role_hid_in):

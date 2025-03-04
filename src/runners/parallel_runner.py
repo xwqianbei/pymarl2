@@ -54,11 +54,6 @@ class ParallelRunner:
         self.groups = groups
         self.preprocess = preprocess
 
-        self.text_ember = TextEmbedding(self.args.embedding_model_path)
-        self.role_embeddings = self.text_ember.embedding_text(self.args.role_desc_set)
-        self.role_controller = RoleController(scheme, self.args)
-        self.role_embedding = None
-
     def get_env_info(self):
         return self.env_info
 
@@ -92,6 +87,27 @@ class ParallelRunner:
 
         self.t = 0
         self.env_steps_this_run = 0
+        self.text_ember = TextEmbedding(self.args.embedding_model_path)
+        self.role_embeddings = self.text_ember.embedding_text(self.args.role_desc_set)
+        self.role_controller = RoleController(self.scheme, self.args)
+        self.role_embedding = None
+
+    def _build_inputs(self, batch, t):
+        # Assumes homogenous agents with flat observations.
+        # Other MACs might want to e.g. delegate building inputs to each agent
+        bs = batch.batch_size
+        inputs = []
+        inputs.append(batch["obs"][:, t])  # b1av
+        if self.args.obs_last_action:
+            if t == 0:
+                inputs.append(th.zeros_like(batch["actions_onehot"][:, t]))
+            else:
+                inputs.append(batch["actions_onehot"][:, t-1])
+        if self.args.obs_agent_id:
+            inputs.append(th.eye(self.args.n_agents, device=batch.device).unsqueeze(0).expand(bs, -1, -1))
+
+        inputs = th.cat([x.reshape(bs, self.args.n_agents, -1) for x in inputs], dim=-1)
+        return inputs
 
     def run(self, test_mode=False):
         self.reset()
@@ -113,7 +129,8 @@ class ParallelRunner:
             # TODO: add the role_embedding
             # 1. Define the self.role_embedding 2. role_selector.forward()
             with th.no_grad():
-                role_prob = self.role_controller.forward(self.batch)
+                inputs = self._build_inputs(self.batch, self.t)
+                role_prob = self.role_controller.forward(inputs)
                 if self.t % self.args.role_update_interval == 0:
                     role_indices = th.argmax(role_prob, dim = -1)
                     self.role_embedding = self.role_embeddings[role_indices]
