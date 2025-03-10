@@ -9,6 +9,7 @@ import torch as th
 from torch.optim import RMSprop, Adam
 import numpy as np
 from utils.th_utils import get_parameters_num
+from utils.api import Call_API
 
 class LLMLearner:
     def __init__(self, mac, scheme, logger, args):
@@ -50,6 +51,21 @@ class LLMLearner:
         if self.use_per:
             self.priority_max = float('-inf')
             self.priority_min = float('inf')
+
+        # get llmer
+        self.llmer = Call_API()
+    
+    def get_llm_output(self, batch, t):
+        """return the role_label and role_thoughts of the agents
+        Args:
+            batch: the batch of episodes
+            t: the time step
+        Returns:
+            role_label(torch.Tensor(bs, n_agents, role_num)): the role label of the agents
+            role_thoughts(torch.Tensor(bs, n_agents, traj_embedding_dim)): the role thoughts of the agents
+        """
+        pass
+
         
     def train(self, batch: EpisodeBatch, t_env: int, episode_num: int, per_weight=None):
         # Get the relevant quantities
