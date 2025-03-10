@@ -1,7 +1,7 @@
 import openai
 import json
 import requests
-from prompt_template import SC2_prompt
+from utils.prompt_template import SC2_prompt
 
 
 class Call_API(object):
