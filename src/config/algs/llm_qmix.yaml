@@ -19,7 +19,7 @@ target_update_interval: 200
 
 # use the Q_Learner to train
 mac: "n_mac"
-agent: "n_rnn"
+agent: "llm_agent"
 agent_output_type: q
 
 learner: "nq_learner"
@@ -51,3 +51,4 @@ role_selector_hidden_dim: 128
 role_num: 5
 role_embedding_dim: 768
 role_decoder_hidden_dim: 64
+role_change_interval: 10
