@@ -1,10 +1,13 @@
 import openai
 import json
 import requests
+from prompt_template import SC2_prompt
+
 
 class Call_API(object):
-    def __init__(self, args):
+    def __init__(self, args, map_name="5m_vs_6m"):
         self.args = args
+        self.prompt_templater = SC2_prompt(map_name)
 
     def call_openai(self, messages, response_format=None):
         openai.api_key = "sk-7I4034OzkVENe2flOxwRZo4bZ27IQu4MMXxObBaRtQVDn1c8"
@@ -131,7 +134,8 @@ class Call_API(object):
             print(traceback.print_exc())
             return default_n_agent_res
 
-    def __call__(self, messages, num_agent, response_format=None):
+    def __call__(self, env_state, num_agent, response_format={"type": "json_object"}):
+        messages = self.prompt_templater.get_message(env_state)
         try: 
             if self.args.api_type == 'openai':
                 response = self.call_openai(messages, response_format)

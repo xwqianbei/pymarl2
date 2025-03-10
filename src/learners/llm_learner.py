@@ -64,6 +64,12 @@ class LLMLearner:
             role_label(torch.Tensor(bs, n_agents, role_num)): the role label of the agents
             role_thoughts(torch.Tensor(bs, n_agents, traj_embedding_dim)): the role thoughts of the agents
         """
+        states = batch["state"][:, t] # [bs, state_dim]
+        role_labels = []
+        role_thoughts = []
+        for state in states:
+            llm_response = self.llmer(state, self.args.n_agents)
+            
         pass
 
         
