@@ -18,7 +18,7 @@ t_max: 10050000
 target_update_interval: 200
 
 # use the Q_Learner to train
-mac: "n_mac"
+mac: "llm_mac"
 agent: "llm_agent"
 agent_output_type: q
 
