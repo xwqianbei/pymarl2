@@ -50,5 +50,6 @@ name: "qmix_env=8_adam_td_lambda"
 role_selector_hidden_dim: 128
 role_num: 5
 role_embedding_dim: 768
+traj_embedding_dim: 768
 role_decoder_hidden_dim: 64
 role_change_interval: 10

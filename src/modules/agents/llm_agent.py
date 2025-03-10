@@ -33,6 +33,8 @@ class LLMAgent(nn.Module):
             nn.Linear(args.role_decoder_hidden_dim, args.n_actions)
         )
 
+        self.traj_decoder = nn.Linear(args.rnn_hidden_dim, args.traj_embedding_dim)
+
     def init_hidden(self):
         return self.fc1.weight.new(1, self.args.rnn_hidden_dim).zero_()
 
@@ -65,9 +67,11 @@ class LLMAgent(nn.Module):
         policy_w = self.role_decoder_w(self.role_embedding).reshape(-1, self.args.rnn_hidden_dim, self.args.n_actions) # [bs * a, rnn_hidden_dim * n_actions]
         policy_b = self.role_decoder_b(self.role_embedding) # [bs * a, n_actions]
 
+        traj_transfer_embd = self.traj_decoder(hh)
+
         q_val = th.bmm(hh.unsqueeze(1), policy_w).squeeze(1) + policy_b # [bs * a, n_actions]
 
-        return q_val.reshape(bs, a, -1), hh.reshape(bs, a, -1), role_probs.reshape(bs, a, -1)
+        return q_val.reshape(bs, a, -1), hh.reshape(bs, a, -1), role_probs.reshape(bs, a, -1), traj_transfer_embd.reshape(bs, a, -1)
      
 
          

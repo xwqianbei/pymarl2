@@ -30,16 +30,16 @@ class LLMMAC(BasicMAC):
         - Returns:
             agent_outs: The q_vals of agents
             hidden_states: The trajectory's hidden states
-            role_probs: The role 
-
+            role_probs: The role probs
+            traj_transfer_embd: The trajectory transfer embedding
         """
         if test_mode:
             self.agent.eval()
             
         agent_inputs = self._build_inputs(ep_batch, t)
         avail_actions = ep_batch["avail_actions"][:, t]
-        agent_outs, self.hidden_states, role_probs = self.agent(agent_inputs, self.hidden_states, t)
+        agent_outs, self.hidden_states, role_probs, traj_transfer_embd = self.agent(agent_inputs, self.hidden_states, t)
 
-        return agent_outs, self.hidden_states, role_probs
+        return agent_outs, self.hidden_states, role_probs, traj_transfer_embd
 
     
