@@ -40,6 +40,6 @@ class LLMMAC(BasicMAC):
         avail_actions = ep_batch["avail_actions"][:, t]
         agent_outs, self.hidden_states, role_probs, traj_transfer_embd = self.agent(agent_inputs, self.hidden_states, t)
 
-        return agent_outs, self.hidden_states, role_probs, traj_transfer_embd
+        return agent_outs, role_probs, traj_transfer_embd
 
     
