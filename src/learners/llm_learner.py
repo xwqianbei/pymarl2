@@ -10,6 +10,7 @@ from torch.optim import RMSprop, Adam
 import numpy as np
 from utils.th_utils import get_parameters_num
 from utils.api import Call_API
+from utils.text_embedding import TextEmbedding
 
 class LLMLearner:
     def __init__(self, mac, scheme, logger, args):
@@ -53,8 +54,22 @@ class LLMLearner:
             self.priority_min = float('inf')
 
         # get llmer
-        self.llmer = Call_API()
-    
+        self.llmer = Call_API(args, map_name=getattr(args, "env_args", {}).get("map_name", "5m_vs_6m"))
+        
+        # 初始化技能到角色索引的映射
+        self.skill_to_idx = {
+            "Focus Fire": 0,
+            "Retreat": 1,
+            "Spread Out": 2,
+            "Advance": 3,
+            "Dead": 4
+        }
+        
+        # 初始化文本嵌入模型
+        self.text_embedder = None
+        if hasattr(args, 'text_embedding_model_path'):
+            self.text_embedder = TextEmbedding(args.text_embedding_model_path)
+        
     def get_llm_output(self, batch, t):
         """return the role_label and role_thoughts of the agents
         Args:
@@ -65,12 +80,48 @@ class LLMLearner:
             role_thoughts(torch.Tensor(bs, n_agents, traj_embedding_dim)): the role thoughts of the agents
         """
         states = batch["state"][:, t] # [bs, state_dim]
+        bs = states.shape[0]
         role_labels = []
         role_thoughts = []
+        
         for state in states:
+            # 调用LLM获取响应
             llm_response = self.llmer(state, self.args.n_agents)
             
-        pass
+            # 处理每个智能体的响应
+            batch_agent_labels = []
+            batch_agent_thoughts = []
+            
+            for agent_response in llm_response:
+                # 获取技能并转换为one-hot编码
+                skill = agent_response["skill"]
+                skill_idx = self.skill_to_idx.get(skill, 0)  # 默认为Focus Fire
+                
+                one_hot = th.zeros(self.args.role_num)
+                one_hot[skill_idx] = 1.0
+                batch_agent_labels.append(one_hot)
+                
+                # 获取思考过程并转换为嵌入向量
+                thought_process = agent_response["thought_process"]
+                
+                if self.text_embedder is not None:
+                    # 使用文本嵌入模型获取嵌入向量
+                    thought_embedding = self.text_embedder.embedding_text([thought_process])[0]
+                else:
+                    # 如果没有文本嵌入模型，则使用零向量
+                    thought_embedding = th.zeros(self.args.traj_embedding_dim)
+                
+                batch_agent_thoughts.append(thought_embedding)
+            
+            # 将每个批次的智能体标签和思考添加到列表中
+            role_labels.append(th.stack(batch_agent_labels))
+            role_thoughts.append(th.stack(batch_agent_thoughts))
+        
+        # 将列表转换为张量
+        role_labels = th.stack(role_labels)  # [bs, n_agents, role_num]
+        role_thoughts = th.stack(role_thoughts)  # [bs, n_agents, traj_embedding_dim]
+        
+        return role_labels, role_thoughts
 
         
     def train(self, batch: EpisodeBatch, t_env: int, episode_num: int, per_weight=None):
