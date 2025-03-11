@@ -4,4 +4,5 @@ __pycache__/
 results/
 *.png
 *.zip
-.DS_Store
+.DS_Storoe
+model/

@@ -29,4 +29,6 @@ if __name__ == '__main__':
     role_desc_set = ["Focus Fire", "Retreat", "Spread Out", "Advance", "Dead"]
     model_path = '/root/pymarl2/model/bge-base-en-v1___5'
     text_embedder = TextEmbedding(model_path)
-    print(text_embedder.embedding_text(role_desc_set))
+    response = text_embedder.embedding_text(role_desc_set)
+    print(type(response))
+    print(response.size())
