@@ -6,6 +6,7 @@ from modules.mixers.qatten import QattenMixer
 from envs.matrix_game import print_matrix_status
 from utils.rl_utils import build_td_lambda_targets, build_q_lambda_targets
 import torch as th
+import torch.nn.functional as F
 from torch.optim import RMSprop, Adam
 import numpy as np
 from utils.th_utils import get_parameters_num
@@ -139,6 +140,9 @@ class LLMLearner:
         mac_out = []
         mac_out_role_probs = []# [max_seq_length, bs, n_agents, role_num]
         mac_out_traj_transfer_embd = []
+
+        llm_out_role_labels = []
+        llm_out_traj_thoughts = []
         self.mac.init_hidden(batch.batch_size)
 
         for t in range(batch.max_seq_length):
@@ -146,13 +150,18 @@ class LLMLearner:
             mac_out.append(agent_outs)
             if t % self.args.role_change_interval == 0:
                 mac_out_role_probs.append(role_probs)
+                llm_role_labels, llm_role_thoughts = self.get_llm_output(batch, t)
+                llm_out_role_labels.append(llm_role_labels)
                 if t != 0:
-                    mac_out_traj_transfer_embd.append(traj_transfer_embd)   
+                    mac_out_traj_transfer_embd.append(traj_transfer_embd)  
+                llm_out_traj_thoughts.append(llm_role_thoughts) 
         
         # Concat over time
         mac_out = th.stack(mac_out, dim=1) # [bs, max_seq_length, n_agents, n_actions]
         mac_out_role_probs = th.stack(mac_out_role_probs, dim=1) # [bs, change_turns, n_agents, role_num]
         mac_out_traj_transfer_embd = th.stack(mac_out_traj_transfer_embd, dim=1) # [bs, change_turns - 1, n_agents, traj_embedding_dim]
+        llm_out_role_labels = th.stack(llm_out_role_labels, dim=1) # [bs, change_turns, n_agents, role_num]
+        llm_out_traj_thoughts = th.stack(llm_out_traj_thoughts, dim=1) # [bs, change_turns - 1, n_agents, traj_embedding_dim]
 
         # Pick the Q-Values for the actions taken by each agent
         chosen_action_qvals = th.gather(mac_out[:, :-1], dim=3, index=actions).squeeze(3)  # Remove the last dim
@@ -203,7 +212,56 @@ class LLMLearner:
             per_weight = th.from_numpy(per_weight).unsqueeze(-1).to(device=self.device)
             masked_td_error = masked_td_error.sum(1) * per_weight
 
-        loss = L_td = masked_td_error.sum() / mask.sum()
+        L_td = masked_td_error.sum() / mask.sum()
+        
+        # 计算角色标签的交叉熵损失
+        # mac_out_role_probs: [bs, change_turns, n_agents, role_num]
+        # llm_out_role_labels: [bs, change_turns, n_agents, role_num]
+        
+        # 将张量移动到正确的设备
+        mac_out_role_probs = mac_out_role_probs.to(self.device)
+        llm_out_role_labels = llm_out_role_labels.to(self.device)
+        
+        # 重塑张量以适应交叉熵损失计算
+        bs, change_turns, n_agents, role_num = mac_out_role_probs.shape
+        mac_out_role_probs_flat = mac_out_role_probs.reshape(-1, role_num)  # [bs * change_turns * n_agents, role_num]
+        llm_out_role_labels_flat = llm_out_role_labels.reshape(-1, role_num)  # [bs * change_turns * n_agents, role_num]
+        
+        # 获取llm_out_role_labels的最大索引作为目标类别
+        llm_out_role_indices = th.argmax(llm_out_role_labels_flat, dim=1)  # [bs * change_turns * n_agents]
+        
+        # 计算交叉熵损失
+        role_loss = F.cross_entropy(mac_out_role_probs_flat, llm_out_role_indices)
+        L_role = role_loss * getattr(self.args, "role_loss_weight", 1.0)
+        
+        # 计算轨迹嵌入的余弦相似度损失
+        # mac_out_traj_transfer_embd: [bs, change_turns - 1, n_agents, traj_embedding_dim]
+        # llm_out_traj_thoughts: [bs, change_turns, n_agents, traj_embedding_dim]
+        
+        # 确保两个张量具有相同的形状
+        if mac_out_traj_transfer_embd.shape[1] < llm_out_traj_thoughts.shape[1]:
+            # 使用llm_out_traj_thoughts的前change_turns-1个时间步
+            llm_out_traj_thoughts_matched = llm_out_traj_thoughts[:, 1:mac_out_traj_transfer_embd.shape[1]+1]
+        else:
+            llm_out_traj_thoughts_matched = llm_out_traj_thoughts[:, 1:]
+        
+        # 将张量移动到正确的设备
+        mac_out_traj_transfer_embd = mac_out_traj_transfer_embd.to(self.device)
+        llm_out_traj_thoughts_matched = llm_out_traj_thoughts_matched.to(self.device)
+        
+        # 重塑张量以计算余弦相似度
+        mac_out_traj_flat = mac_out_traj_transfer_embd.reshape(-1, self.args.traj_embedding_dim)  # [bs * (change_turns-1) * n_agents, traj_embedding_dim]
+        llm_out_traj_flat = llm_out_traj_thoughts_matched.reshape(-1, self.args.traj_embedding_dim)  # [bs * (change_turns-1) * n_agents, traj_embedding_dim]
+        
+        # 计算余弦相似度
+        cos_sim = F.cosine_similarity(mac_out_traj_flat, llm_out_traj_flat, dim=1)  # [bs * (change_turns-1) * n_agents]
+        
+        # 计算余弦相似度损失 (1 - 余弦相似度的平均值)
+        traj_loss = 1.0 - cos_sim.mean()
+        L_traj = traj_loss * getattr(self.args, "traj_loss_weight", 1.0)
+        
+        # 总损失
+        loss = L_td + L_role + L_traj
 
         # Optimise
         self.optimiser.zero_grad()
@@ -217,6 +275,9 @@ class LLMLearner:
 
         if t_env - self.log_stats_t >= self.args.learner_log_interval:
             self.logger.log_stat("loss_td", L_td.item(), t_env)
+            self.logger.log_stat("loss_role", L_role.item(), t_env)
+            self.logger.log_stat("loss_traj", L_traj.item(), t_env)
+            self.logger.log_stat("loss_total", loss.item(), t_env)
             self.logger.log_stat("grad_norm", grad_norm, t_env)
             mask_elems = mask.sum().item()
             self.logger.log_stat("td_error_abs", (masked_td_error.abs().sum().item()/mask_elems), t_env)
