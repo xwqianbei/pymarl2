@@ -261,7 +261,7 @@ class LLMLearner:
         L_traj = traj_loss * getattr(self.args, "traj_loss_weight", 1.0)
         
         # 总损失
-        loss = L_td + L_role + L_traj
+        loss = L_td + self.args.role_loss_weight * L_role + self.args.trajectory_loss_weight * L_traj
 
         # Optimise
         self.optimiser.zero_grad()

@@ -22,7 +22,7 @@ mac: "llm_mac"
 agent: "llm_agent"
 agent_output_type: q
 
-learner: "nq_learner"
+learner: "llm_learner"
 mixer: "qmix"
 mixing_embed_dim: 32
 hypernet_embed: 64
@@ -53,3 +53,8 @@ role_embedding_dim: 768
 traj_embedding_dim: 768
 role_decoder_hidden_dim: 64
 role_change_interval: 10
+
+role_loss_weight: 0.1
+trajectory_loss_weight: 0.1
+
+text_embedding_model_path: "/root/pymarl2/models/bge-m3"
