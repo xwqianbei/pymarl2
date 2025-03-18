@@ -1,6 +1,15 @@
+from envs import REGISTRY as env_REGISTRY
+
+
 class SC2_prompt(object):
     def __init__(self, map_name="5m_vs_6m")->None:
         self.map_name = map_name
+
+        self.env = env_REGISTRY['sc2'](map_name=self.map_name)
+        self.env.reset()
+        from envs.starcraft.smac_maps import get_map_params
+        self.map_config = get_map_params(map_name)
+
         self.task_description = f"We are playing StarCraft II micro scenario, tring to control our agents to defeat all of the enemy units.\n"
         self.state_form = "In each step, the current state is a 1-dimensional list: [nf_al]*n_agents + [nf_en]*n_enemies + [last_actions].\
 nf_al denotes the unit state for each agent with attributes [health_rate, weapon_cooldown_rate or energy_rate, relative_x_to_map_center, \
@@ -39,5 +48,6 @@ Please respond in the following JSON format:\n" + \
         message=[]
         message.append({'role':'system', 'content':self.task_description + self.state_form + self.role_instruction})
         # TODO: process the self.map_config
-        message.append({'role':'user', 'content':f"Task is {self.map_name}.\ncurrent_state is {env_states}."})
+        # message.append({'role':'user', 'content':f"Task is {self.map_name}.\ncurrent_state is {env_states}."})
+        message.append({'role':'user', 'content':f"Task is {self.map_name}. The map config is {str(self.map_config)}.\ncurrent_state is {env_states}."})
         return message
