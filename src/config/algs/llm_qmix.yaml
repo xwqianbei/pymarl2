@@ -58,3 +58,5 @@ role_loss_weight: 0.1
 trajectory_loss_weight: 0.1
 
 text_embedding_model_path: "/root/pymarl2/model/bge-base-en-v1___5"
+api_type: "qwen"
+model: "qwq-plus"
