@@ -12,6 +12,7 @@ import numpy as np
 from utils.th_utils import get_parameters_num
 from utils.api import Call_API
 from utils.text_embedding import TextEmbedding
+import json
 
 class LLMLearner:
     def __init__(self, mac, scheme, logger, args):
@@ -88,6 +89,9 @@ class LLMLearner:
         for state in states:
             # 调用LLM获取响应
             llm_response = self.llmer(state, self.args.n_agents)
+
+            with open("llm_response.json", "w", encoding='utf-8') as f:
+                json.dump(llm_response, f, indent=4, ensure_ascii=False)
             
             # 处理每个智能体的响应
             batch_agent_labels = []
