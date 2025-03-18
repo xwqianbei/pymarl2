@@ -5,7 +5,7 @@ from utils.prompt_template import SC2_prompt
 
 
 class Call_API(object):
-    def __init__(self, args, map_name="5m_vs_6m"):
+    def __init__(self, args, map_name="2s3z"):
         self.args = args
         self.prompt_templater = SC2_prompt(map_name)
 
