@@ -56,7 +56,7 @@ class LLMLearner:
             self.priority_min = float('inf')
 
         # get llmer
-        self.llmer = Call_API(args, map_name=getattr(args, "env_args", {}).get("map_name", "5m_vs_6m"))
+        self.llmer = Call_API(args, map_name=getattr(args, "env_args", {}).get("map_name", "2s3z"))
         
         # 初始化技能到角色索引的映射
         self.skill_to_idx = {
@@ -90,7 +90,7 @@ class LLMLearner:
             # 调用LLM获取响应
             llm_response = self.llmer(state, self.args.n_agents)
 
-            with open("llm_response.json", "w", encoding='utf-8') as f:
+            with open("llm_response.json", "a", encoding='utf-8') as f:
                 json.dump(llm_response, f, indent=4, ensure_ascii=False)
             
             # 处理每个智能体的响应

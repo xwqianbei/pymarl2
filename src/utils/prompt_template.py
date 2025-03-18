@@ -2,7 +2,7 @@ from envs import REGISTRY as env_REGISTRY
 
 
 class SC2_prompt(object):
-    def __init__(self, map_name="5m_vs_6m")->None:
+    def __init__(self, map_name="2s3z")->None:
         self.map_name = map_name
 
         self.env = env_REGISTRY['sc2'](map_name=self.map_name)
