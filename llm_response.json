@@ -2,26 +2,584 @@
     {
         "agentID": 0,
         "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "conditions": "Agent 0 has full health and is engaged with an enemy (weapon cooldown is 0).",
+        "thought_process": "Agent 0 is positioned at (-0.2746, 0) and is fully healthy with no weapon cooldown, indicating it's actively engaging with an enemy."
     },
     {
         "agentID": 1,
         "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "conditions": "Agent 1 has full health and is engaged with an enemy (weapon cooldown is 0).",
+        "thought_process": "Agent 1 is positioned at (-0.25, -0.0246) and is fully healthy with no weapon cooldown, indicating it's actively engaging with an enemy."
     },
     {
         "agentID": 2,
         "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "conditions": "Agent 2 has full health and is engaged with an enemy (weapon cooldown is 0).",
+        "thought_process": "Agent 2 is positioned at (-0.25, 0.0246) and is fully healthy with no weapon cooldown, indicating it's actively engaging with an enemy."
     },
     {
         "agentID": 3,
         "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "conditions": "Agent 3 has full health and is engaged with an enemy (weapon cooldown is 0).",
+        "thought_process": "Agent 3 is positioned at (-0.2254, 0) and is fully healthy with no weapon cooldown, indicating it's actively engaging with an enemy."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 has full health and is not currently engaged with an enemy (weapon cooldown is not 0).",
+        "thought_process": "Agent 4 is positioned at (0.2746, 0) and is fully healthy but not engaged with an enemy, suggesting it should advance towards enemies."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and no cooldown, positioned slightly left of center with other allied units nearby.",
+        "thought_process": "Given the proximity to other allied units and full health status, Agent 0 should focus fire on the nearest enemy."
+    },
+    {
+        "agentID": 1,
+        "skill": "Focus Fire",
+        "conditions": "Agent 1 has full health and no cooldown, positioned slightly left of center with other allied units nearby.",
+        "thought_process": "Similar to Agent 0, Agent 1 is also in a good position to support the main engagement by focusing fire on the nearest enemy."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "Agent 2 has full health and no cooldown, positioned slightly left of center with other allied units nearby.",
+        "thought_process": "Agent 2's positioning and health condition make it suitable for engaging the nearest enemy as part of the group effort."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent 3 has full health and no cooldown, positioned slightly left of center but further from the others.",
+        "thought_process": "Since Agent 3 is slightly isolated, advancing to join the main group can help concentrate firepower and improve tactical positioning."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 has full health and no cooldown, positioned slightly right of center.",
+        "thought_process": "Agent 4 is well-positioned to advance towards the main cluster of allies and enemies, helping to consolidate the team's efforts."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and no cooldown, and is relatively close to the center of the map, indicating it's in a good position to target an enemy.",
+        "thought_process": "Given its optimal health and positioning, Agent 0 should prioritize targeting an enemy."
+    },
+    {
+        "agentID": 1,
+        "skill": "Focus Fire",
+        "conditions": "Agent 1 has full health and no cooldown, and is also near the center of the map, making it suitable for engaging enemies.",
+        "thought_process": "Similar to Agent 0, Agent 1 is in a prime position to engage and focus fire on an enemy."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "Agent 2 has full health and no cooldown, and is positioned near the center of the map, indicating readiness to engage enemies.",
+        "thought_process": "With full health and no cooldown, Agent 2 can effectively contribute to focusing fire on an enemy."
+    },
+    {
+        "agentID": 3,
+        "skill": "Focus Fire",
+        "conditions": "Agent 3 has full health and no cooldown, and is positioned near the center of the map, suggesting it can effectively engage enemies.",
+        "thought_process": "Agent 3's position and health status make it ideal for contributing to the focus fire on an enemy."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 has full health and no cooldown, and is positioned slightly further from the center of the map compared to others, indicating a potential advance towards enemies.",
+        "thought_process": "While healthy and ready to fight, Agent 4's position suggests it could benefit from moving closer to the action to support the team."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent is at full health (1.0) and has no cooldown (0.0), indicating it can attack.",
+        "thought_process": "The agent is fully healthy and ready to attack. Given its position and the lack of enemies within the current state data, it's best to prepare for engaging the nearest target."
+    },
+    {
+        "agentID": 1,
+        "skill": "Spread Out",
+        "conditions": "Agent is at full health and has no cooldown, but needs to maintain formation to cover more ground.",
+        "thought_process": "This agent is also fully healthy and capable of attacking. However, spreading out from the current cluster could help in covering more area and potentially finding enemy positions."
+    },
+    {
+        "agentID": 2,
+        "skill": "Spread Out",
+        "conditions": "Agent is at full health and has no cooldown, but needs to maintain formation to cover more ground.",
+        "thought_process": "Similar to agent 1, this agent should spread out to ensure better coverage of the battlefield."
+    },
+    {
+        "agentID": 3,
+        "skill": "Spread Out",
+        "conditions": "Agent is at full health and has no cooldown, but needs to maintain formation to cover more ground.",
+        "thought_process": "This agent is healthy and ready to engage, but spreading out will help in maintaining a balanced formation."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent is at full health and has no cooldown, ready to move forward and engage the enemy.",
+        "thought_process": "Given that this agent is healthy and not under immediate threat, advancing towards potential enemy positions can be beneficial in taking the initiative."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and is not cooling down weapons, and it is in close proximity to other allies but facing enemies.",
+        "thought_process": "Since Agent 0 is at full health and not cooling down weapons, it should engage in combat. Its position suggests it is near other allies, making it an ideal candidate for focusing fire on nearby enemies."
+    },
+    {
+        "agentID": 1,
+        "skill": "Focus Fire",
+        "conditions": "Agent 1 has full health and is not cooling down weapons, and it is in close proximity to other allies but facing enemies.",
+        "thought_process": "Similar to Agent 0, Agent 1 is also in good condition and close to other allies, making it suitable for focusing fire on nearby enemies."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "Agent 2 has full health and is not cooling down weapons, and it is in close proximity to other allies but facing enemies.",
+        "thought_process": "Agent 2 is in a similar situation as Agents 0 and 1, indicating it should also focus fire on nearby enemies."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent 3 has full health and is not cooling down weapons, and it is slightly behind the main group of allies, suggesting a need to move forward.",
+        "thought_process": "Agent 3 is positioned slightly behind the main group of allies. Given its good health status and lack of weapon cooldown, advancing towards the enemy line would be beneficial."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 has full health and is not cooling down weapons, and it is slightly behind the main group of allies, suggesting a need to move forward.",
+        "thought_process": "Agent 4 is also in a position behind the main group. Advancing can help reinforce the front lines and increase the pressure on the enemy."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and no cooldown, and it's relatively close to the center with other agents.",
+        "thought_process": "Given the full health and low cooldown, Agent 0 should focus fire on the nearest enemy to maximize damage output."
+    },
+    {
+        "agentID": 1,
+        "skill": "Focus Fire",
+        "conditions": "Agent 1 has full health and no cooldown, and it's relatively close to the center with other agents.",
+        "thought_process": "With full health and no cooldown, Agent 1 should also engage in focused fire on the nearest enemy."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "Agent 2 has full health and no cooldown, and it's relatively close to the center with other agents.",
+        "thought_process": "Agent 2 is in a similar state as Agents 0 and 1, so it should join the focus fire effort."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent 3 has full health and no cooldown, and it's slightly further from the center compared to others.",
+        "thought_process": "Since Agent 3 is slightly offset from the main group, it can advance to engage enemies from a different angle."
+    },
+    {
+        "agentID": 4,
+        "skill": "Spread Out",
+        "conditions": "Agent 4 has full health and no cooldown, and it's the furthest from the center among all agents.",
+        "thought_process": "As the furthest agent from the center, Agent 4 should spread out to cover more ground and prevent enemy flanking."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and no cooldown, positioned relatively near the center of the map.",
+        "thought_process": "Given that Agent 0 is healthy and ready to attack, it should focus fire on the nearest target."
+    },
+    {
+        "agentID": 1,
+        "skill": "Focus Fire",
+        "conditions": "Agent 1 has full health and no cooldown, positioned slightly to the left of the center.",
+        "thought_process": "With Agent 1 also healthy and ready, it should support Agent 0 by focusing fire on the same target."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "Agent 2 has full health and no cooldown, positioned slightly to the right of the center.",
+        "thought_process": "As Agent 2 is in good condition, it should join the focus fire effort to maximize damage output."
+    },
+    {
+        "agentID": 3,
+        "skill": "Focus Fire",
+        "conditions": "Agent 3 has full health and no cooldown, positioned slightly below the center.",
+        "thought_process": "Agent 3 is healthy and can contribute effectively to the focus fire strategy."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 has full health and no cooldown, positioned slightly above the center.",
+        "thought_process": "Since Agent 4 is healthy and not engaged, it should move forward to engage enemies and support the team."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and no cooldown, positioned near the center of the map, and is close to other agents.",
+        "thought_process": "Since Agent 0 is healthy and not under attack, it should focus fire on the nearest enemy to maximize damage."
+    },
+    {
+        "agentID": 1,
+        "skill": "Focus Fire",
+        "conditions": "Agent 1 has full health and no cooldown, positioned near the center of the map, and is close to other agents.",
+        "thought_process": "Like Agent 0, Agent 1 is in good condition and should also target the nearest enemy to contribute to team damage output."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "Agent 2 has full health and no cooldown, positioned near the center of the map, and is close to other agents.",
+        "thought_process": "Agent 2 is healthy and in a group, so focusing fire on the nearest enemy will be most effective."
+    },
+    {
+        "agentID": 3,
+        "skill": "Focus Fire",
+        "conditions": "Agent 3 has full health and no cooldown, positioned near the center of the map, and is close to other agents.",
+        "thought_process": "Agent 3 should assist in overwhelming the nearest enemy as part of the coordinated attack."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 has full health and no cooldown, positioned slightly ahead of the main group towards the enemy.",
+        "thought_process": "Agent 4 is in a position to scout and engage enemies first, advancing to disrupt the enemy formation."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Advance",
+        "conditions": "Agent has full health and no cooldown, close to the center but not engaged.",
+        "thought_process": "The agent has full health and no cooldown, indicating it can engage. Its proximity to the map center suggests it's near potential enemies."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "Agent has full health and no cooldown, close to the center but not engaged.",
+        "thought_process": "Similar to Agent 0, this agent is also fully healthy and ready to engage, positioned centrally."
+    },
+    {
+        "agentID": 2,
+        "skill": "Advance",
+        "conditions": "Agent has full health and no cooldown, close to the center but not engaged.",
+        "thought_process": "This agent is in a similar state as Agents 0 and 1, suggesting readiness to advance towards potential threats."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent has full health and no cooldown, close to the center but not engaged.",
+        "thought_process": "This agent is in a similar state as others, with full health and no cooldown, ready to move forward."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent has full health and no cooldown, close to the center but not engaged.",
+        "thought_process": "Like other agents, this one is fully healthy and ready to engage with enemies."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "The agent has full health and no cooldown, indicating it can attack immediately.",
+        "thought_process": "Agent 0 is fully healthy and ready to attack. Given its position and proximity to other agents, focusing fire on an enemy could be effective."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "The agent has full health and no cooldown, and is positioned relatively close to the center of the map.",
+        "thought_process": "Agent 1 is also in good condition and not too far from the center. Advancing towards the enemy line-up seems prudent."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "The agent has full health and no cooldown, and is positioned relatively close to the center of the map.",
+        "thought_process": "Agent 2 is in similar condition as Agent 0. It should focus fire on an enemy target to maximize damage output."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "The agent has full health and no cooldown, and is positioned relatively close to the center of the map.",
+        "thought_process": "Agent 3 is healthy and near the center, advancing would help engage the enemy more effectively."
+    },
+    {
+        "agentID": 4,
+        "skill": "Spread Out",
+        "conditions": "The agent has full health and no cooldown, but is slightly further from the center compared to others.",
+        "thought_process": "Agent 4 is in good shape but farther from the main group. Spreading out can help prevent clustering and potential enemy targeting."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Health rate is full, weapon cooldown is zero, and there are enemies within range.",
+        "thought_process": "Agent 0 has full health and no weapon cooldown, indicating it can attack immediately. It's relatively close to the center of the map, suggesting potential proximity to enemies."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "Health rate is full, weapon cooldown is zero, and there are no immediate threats nearby.",
+        "thought_process": "Agent 1 also has full health and no weapon cooldown, and its position suggests it is not currently engaged in combat but could be moving towards the enemy."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "Health rate is full, weapon cooldown is zero, and there are enemies within range.",
+        "thought_process": "Agent 2 has full health and no weapon cooldown, similar to Agent 0, and its position indicates it might be in an active engagement."
+    },
+    {
+        "agentID": 3,
+        "skill": "Focus Fire",
+        "conditions": "Health rate is full, weapon cooldown is zero, and there are enemies within range.",
+        "thought_process": "Agent 3 has full health and no weapon cooldown, and its position near the center of the map suggests it is actively engaging enemies."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Health rate is full, weapon cooldown is zero, and there are no immediate threats nearby.",
+        "thought_process": "Agent 4 has full health and no weapon cooldown, and its position indicates it may be moving towards the enemy line to engage."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and no cooldown, positioned relatively close to the center of the map with other agents nearby, indicating it's in a good position to focus fire on an enemy.",
+        "thought_process": "Given its optimal health status and proximity to other agents, Agent 0 can effectively contribute to concentrating fire power on a target."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "Agent 1 has full health and no cooldown, positioned slightly offset from the center but not isolated, suggesting it can advance towards enemies while maintaining coordination with others.",
+        "thought_process": "With full health and low cooldown, advancing will allow Agent 1 to engage more enemies while keeping formation intact."
+    },
+    {
+        "agentID": 2,
+        "skill": "Advance",
+        "conditions": "Agent 2 has full health and no cooldown, slightly offset from the center, indicating readiness to move forward and engage enemies.",
+        "thought_process": "Full health and low cooldown mean Agent 2 can safely advance to support队友并参与战斗。"
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent 3 has full health and no cooldown, positioned near other agents, allowing for coordinated advancement towards the enemy.",
+        "thought_process": "Having full health and no cooldown, Agent 3 should advance to maintain group cohesion and engage enemies."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 has full health and no cooldown, positioned near the center with other agents, suitable for advancing and engaging enemies.",
+        "thought_process": "With full health and no cooldown, Agent 4 can advance to support team efforts and engage the enemy."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Health rate is full, cooldown is zero, close to the center, and has engaged an enemy.",
+        "thought_process": "Agent 0 has full health and no cooldown, indicating it's ready to attack. It's also positioned near the center where there seems to be engagement."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "Health rate is full, cooldown is zero, relatively far from the center, and not engaged.",
+        "thought_process": "Agent 1 has full health and no cooldown, but is further away from the center, suggesting it should move towards the action."
+    },
+    {
+        "agentID": 2,
+        "skill": "Focus Fire",
+        "conditions": "Health rate is full, cooldown is zero, close to the center, and has engaged an enemy.",
+        "thought_process": "Agent 2 is similarly positioned near the center and ready to engage the enemy, having full health and no cooldown."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Health rate is full, cooldown is zero, relatively far from the center, and not engaged.",
+        "thought_process": "Agent 3 is in good condition (full health and no cooldown) but needs to move closer to the action since it's farther from the center."
+    },
+    {
+        "agentID": 4,
+        "skill": "Focus Fire",
+        "conditions": "Health rate is full, cooldown is zero, close to the center, and has engaged an enemy.",
+        "thought_process": "Agent 4 is in optimal attacking condition (full health, no cooldown) and is near the center, making it suitable for focus firing."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health, no cooldown, and is relatively close to the center of the map. It is in a position to focus fire on the nearest enemy.",
+        "thought_process": "Given Agent 0's high health and no cooldown, it is in an optimal condition to engage and focus fire on the nearest enemy."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "Agent 1 has full health, no cooldown, and is slightly positioned away from the center. It can advance towards the nearest enemy.",
+        "thought_process": "With full health and no cooldown, Agent 1 can safely advance towards the nearest enemy, maintaining a moderate distance from the center to avoid clustering."
+    },
+    {
+        "agentID": 2,
+        "skill": "Advance",
+        "conditions": "Agent 2 has full health, no cooldown, and is positioned near the center. It can advance towards the nearest enemy.",
+        "thought_process": "Agent 2, being fully healthy and not under cooldown, should advance towards the nearest enemy to maintain pressure."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent 3 has full health, no cooldown, and is slightly positioned away from the center. It can advance towards the nearest enemy.",
+        "thought_process": "Being fully healthy and without cooldown, Agent 3 should also advance towards the nearest enemy to increase the engagement pressure."
+    },
+    {
+        "agentID": 4,
+        "skill": "Spread Out",
+        "conditions": "Agent 4 has full health, no cooldown, but is already engaged with an enemy. It should spread out to avoid clustering and maintain mobility.",
+        "thought_process": "Despite being fully healthy and not under cooldown, Agent 4 should spread out to avoid clustering and maintain mobility, ensuring a more effective engagement strategy."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and no cooldown, positioned relatively close to the center of the map.",
+        "thought_process": "Given that Agent 0 has full health and no cooldown, it should focus fire on the nearest enemy to maximize damage output."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "Agent 1 has full health and no cooldown, positioned slightly to the left of the center of the map.",
+        "thought_process": "With full health and no cooldown, Agent 1 can advance towards the center of the map to engage enemies more effectively."
+    },
+    {
+        "agentID": 2,
+        "skill": "Advance",
+        "conditions": "Agent 2 has full health and no cooldown, positioned slightly above the center of the map.",
+        "thought_process": "Agent 2 can also advance towards the center to engage enemies since it is healthy and ready to attack."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent 3 has full health and no cooldown, positioned slightly below the center of the map.",
+        "thought_process": "Similar to other agents, Agent 3 can advance towards the center as it is fully healthy and ready to fight."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 has full health and no cooldown, positioned slightly to the right of the center of the map.",
+        "thought_process": "Agent 4 is also in good condition to advance towards the center to support its teammates."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent is fully healthy (health_rate=1) and has no cooldown (weapon_cooldown_rate=0). It is relatively close to the center (-0.2768, -0.0134) compared to others.",
+        "thought_process": "Given the full health and zero cooldown, this agent should prioritize focusing fire on the nearest enemy to maximize damage output."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "Agent is fully healthy (health_rate=1) and has no cooldown (weapon_cooldown_rate=0). It is slightly closer to the center (-0.2768, 0.0268) compared to the previous agent.",
+        "thought_process": "This agent is also fully healthy and ready to attack, but it's slightly closer to the center, suggesting a more central position for better coordination and engagement with enemies."
+    },
+    {
+        "agentID": 2,
+        "skill": "Advance",
+        "conditions": "Agent is fully healthy (health_rate=1) and has no cooldown (weapon_cooldown_rate=0). It is positioned at (-0.2500, -0.0402).",
+        "thought_process": "Similar to the first two agents, this one is ready to engage. Its position suggests it might be slightly behind the front line, advancing would put it in a good position to support or engage."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent is fully healthy (health_rate=1) and has no cooldown (weapon_cooldown_rate=0). It is at (-0.2466, -0.0035).",
+        "thought_process": "Like the other agents, this one is prepared to advance. Its position indicates it could be used to flank or reinforce the front lines."
+    },
+    {
+        "agentID": 4,
+        "skill": "Focus Fire",
+        "conditions": "Agent is fully healthy (health_rate=1) and has no cooldown (weapon_cooldown_rate=0). It is at (0.2450, 0.0000).",
+        "thought_process": "With a full health and no cooldown, this agent can effectively focus fire from a potentially advantageous position due to its different x-coordinate indicating a possible flanking position."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Advance",
+        "conditions": "Agent 0 has full health (1.0) and no cooldown (0.0). It's positioned near the center (-0.27459, 0.0) with other agents.",
+        "thought_process": "Since Agent 0 is fully healthy and has no cooldown, it can move forward to engage the enemy."
+    },
+    {
+        "agentID": 1,
+        "skill": "Focus Fire",
+        "conditions": "Agent 1 is also at full health (1.0) and no cooldown (0.0). Positioned near the center (-0.25729, 0.023481) with other agents.",
+        "thought_process": "Given that Agent 1 is healthy and has no cooldown, it should focus fire on the nearest enemy to maximize damage output."
+    },
+    {
+        "agentID": 2,
+        "skill": "Spread Out",
+        "conditions": "Agent 2 is at full health (1.0) and no cooldown (0.0). Positioned near the center (-0.25, -0.024588) with other agents.",
+        "thought_process": "To avoid clumping and increase survivability, Agent 2 should spread out from the other agents."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent 3 is at full health (1.0) and no cooldown (0.0). Positioned near the center (-0.22541, 0.0) with other agents.",
+        "thought_process": "With full health and no cooldown, Agent 3 can advance towards the enemy to engage in combat."
+    },
+    {
+        "agentID": 4,
+        "skill": "Focus Fire",
+        "conditions": "Agent 4 is at full health (1.0) and no cooldown (0.0). Positioned near the center (-0.22039, 0.00043597) with other agents.",
+        "thought_process": "Given its optimal condition, Agent 4 should focus fire on the nearest enemy to deal maximum damage."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and no cooldown, positioned near the center, and all enemies are within range.",
+        "thought_process": "Agent 0 is healthy and ready to attack. Given its position close to the center and the presence of multiple enemies nearby, it should focus fire on the closest enemy."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "Agent 1 has full health and no cooldown, positioned slightly to the left of the center, and there are enemies nearby but not directly engaged.",
+        "thought_process": "Agent 1 is healthy and needs to move closer to engage the enemy more effectively. Advancing towards the enemy cluster makes sense."
+    },
+    {
+        "agentID": 2,
+        "skill": "Advance",
+        "conditions": "Agent 2 has full health and no cooldown, positioned slightly to the left of the center, and there are enemies nearby but not directly engaged.",
+        "thought_process": "Similar to Agent 1, Agent 2 is also healthy and needs to move forward to engage the enemy more closely."
+    },
+    {
+        "agentID": 3,
+        "skill": "Advance",
+        "conditions": "Agent 3 has full health and no cooldown, positioned slightly to the right of the center, and there are enemies nearby but not directly engaged.",
+        "thought_process": "Agent 3 is healthy and needs to move forward to engage the enemy more effectively. Advancing towards the enemy cluster makes sense."
+    },
+    {
+        "agentID": 4,
+        "skill": "Spread Out",
+        "conditions": "Agent 4 has full health and no cooldown, positioned near the center, and there are enemies nearby but not directly engaged.",
+        "thought_process": "Although Agent 4 is healthy and could advance, the tight clustering of agents increases vulnerability to concentrated enemy attacks. Spreading out can help distribute the damage."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 has full health and is close to the center of the map, indicating it can effectively target enemies.",
+        "thought_process": "Agent 0 is centered and has full health, making it ideal for focusing fire on the nearest enemy."
+    },
+    {
+        "agentID": 1,
+        "skill": "Spread Out",
+        "conditions": "Agent 1 is slightly off-center and has full health, suggesting it should spread out to cover more ground.",
+        "thought_process": "Agent 1 is positioned to spread out and provide better coverage, avoiding clustering."
+    },
+    {
+        "agentID": 2,
+        "skill": "Advance",
+        "conditions": "Agent 2 is slightly off-center and has full health, indicating it should move forward to engage enemies.",
+        "thought_process": "Agent 2 is in a position to advance and engage enemies directly."
+    },
+    {
+        "agentID": 3,
+        "skill": "Retreat",
+        "conditions": "Agent 3 is slightly off-center but has low energy, suggesting it should retreat to conserve resources.",
+        "thought_process": "Agent 3 needs to conserve energy and retreat to avoid unnecessary engagement."
     },
     {
         "agentID": 4,
@@ -33,26 +591,88 @@
     {
         "agentID": 0,
         "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "conditions": "Agent 0 has full health and is close to the center of the map. There are no enemies in range to attack.",
+        "thought_process": "Agent 0 is in the center and has full health. Since there are no enemies in range, focusing fire is not necessary. No enemies are present to target."
     },
     {
         "agentID": 1,
-        "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "skill": "Spread Out",
+        "conditions": "Agent 1 is close to the center of the map and has full health. It should spread out to avoid clumping and be ready to engage enemies if they approach.",
+        "thought_process": "Agent 1 is centrally located and healthy. Spreading out helps maintain optimal positioning for engagement."
     },
     {
         "agentID": 2,
-        "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "skill": "Advance",
+        "conditions": "Agent 2 is slightly off-center and has full health. It should advance to better position itself for potential engagements.",
+        "thought_process": "Agent 2 is slightly off-center but still has full health. Advancing helps it get closer to potential threats."
     },
     {
         "agentID": 3,
+        "skill": "Spread Out",
+        "conditions": "Agent 3 is slightly off-center and has full health. It should spread out to avoid clumping and be ready to engage enemies if they approach.",
+        "thought_process": "Agent 3 is slightly off-center and healthy. Spreading out helps maintain optimal positioning for engagement."
+    },
+    {
+        "agentID": 4,
+        "skill": "Advance",
+        "conditions": "Agent 4 is slightly off-center and has full health. It should advance to better position itself for potential engagements.",
+        "thought_process": "Agent 4 is slightly off-center but still has full health. Advancing helps it get closer to potential threats."
+    }
+][
+    {
+        "agentID": 0,
         "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "conditions": "The agent is at full health (health_rate = 1.0000) and has no weapon cooldown (weapon_cooldown_rate = 0.0000). It is relatively close to the center of the map (-0.2500, -0.0424) and has shields active (shield_rate = 1.0000). The agent's unit type bits indicate it is a Zealot (1.0000). Given these conditions, it should focus fire on an enemy.",
+        "thought_process": "Agent 0 is healthy and has shields, making it ideal for focusing fire. The location suggests it is well-positioned to target enemies."
+    },
+    {
+        "agentID": 1,
+        "skill": "Advance",
+        "conditions": "The agent is at full health (health_rate = 1.0000) and has no weapon cooldown (weapon_cooldown_rate = 0.0000). It is relatively close to the center of the map (0.0000, 1.0000) and has shields active (shield_rate = 1.0000). The agent's unit type bits indicate it is a Zealot (1.0000). Given these conditions, it should advance towards the enemy line.",
+        "thought_process": "Agent 1 is in a good position to move forward and engage the enemy, as it is already healthy and shielded."
+    },
+    {
+        "agentID": 2,
+        "skill": "Spread Out",
+        "conditions": "The agent is at full health (health_rate = 1.0000) and has no weapon cooldown (weapon_cooldown_rate = 0.0000). It is relatively far from the center of the map (-0.2769, 0.0268) and has shields active (shield_rate = 1.0000). The agent's unit type bits indicate it is a Zealot (1.0000). Given these conditions, it should spread out to provide better coverage.",
+        "thought_process": "Agent 2 is positioned differently from other agents, so spreading out can help cover more ground."
+    },
+    {
+        "agentID": 3,
+        "skill": "Retreat",
+        "conditions": "The agent is at full health (health_rate = 1.0000) and has no weapon cooldown (weapon_cooldown_rate = 0.0000). It is relatively close to the center of the map (0.0000, 0.0268) and has shields active (shield_rate = 1.0000). The agent's unit type bits indicate it is a Zealot (1.0000). Given these conditions, it should retreat slightly to avoid being targeted by multiple enemies.",
+        "thought_process": "Agent 3 is in a central position, so retreating slightly can help it avoid being overwhelmed."
+    },
+    {
+        "agentID": 4,
+        "skill": "Focus Fire",
+        "conditions": "The agent is at full health (health_rate = 1.0000) and has no weapon cooldown (weapon_cooldown_rate = 0.0000). It is relatively close to the center of the map (0.0000, -0.2232) and has shields active (shield_rate = 1.0000). The agent's unit type bits indicate it is a Zealot (1.0000). Given these conditions, it should focus fire on an enemy.",
+        "thought_process": "Agent 4 is in a good position to focus fire, as it is healthy and shielded."
+    }
+][
+    {
+        "agentID": 0,
+        "skill": "Focus Fire",
+        "conditions": "Agent 0 is at full health (health_rate = 1.0000) and has a relatively close position to the center of the map (relative_x_to_map_center = -0.2500, relative_y_to_map_center = -0.0424). There are no enemies in immediate range, but it's a good position to focus fire on the nearest enemy.",
+        "thought_process": "Given the agent's position and health, it should prioritize focusing fire on the nearest enemy."
+    },
+    {
+        "agentID": 1,
+        "skill": "Spread Out",
+        "conditions": "Agent 1 is also at full health (health_rate = 1.0000) and has a relatively close position to the center of the map (relative_x_to_map_center = -0.2500, relative_y_to_map_center = 0.0000). This agent can spread out to cover more ground and provide better defense against incoming attacks.",
+        "thought_process": "Spreading out can help in covering more area and providing better defense against potential enemy movements."
+    },
+    {
+        "agentID": 2,
+        "skill": "Advance",
+        "conditions": "Agent 2 is at full health (health_rate = 1.0000) and has a relatively close position to the center of the map (relative_x_to_map_center = -0.2769, relative_y_to_map_center = 0.0268). It should advance to engage the nearest enemy or support other agents in their attack.",
+        "thought_process": "Advancing can help in engaging the nearest enemy or supporting other agents in their attack."
+    },
+    {
+        "agentID": 3,
+        "skill": "Retreat",
+        "conditions": "Agent 3 is at full health (health_rate = 1.0000) and has a relatively close position to the center of the map (relative_x_to_map_center = -0.2232, relative_y_to_map_center = 0.0268). It might be in a less favorable position, so it should retreat to regroup and plan its next move.",
+        "thought_process": "Retreating can help in regrouping and planning the next move from a safer position."
     },
     {
         "agentID": 4,
@@ -64,31 +684,31 @@
     {
         "agentID": 0,
         "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "conditions": "Agent 0 has full health (health_rate = 1.0000) and is in the center of the map (relative_x_to_map_center = -0.2500, relative_y_to_map_center = -0.2500). It is in a good position to focus fire on enemies.",
+        "thought_process": "Agent 0 is in the center of the map and has full health, making it an ideal candidate for focusing fire on nearby enemies."
     },
     {
         "agentID": 1,
-        "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "skill": "Spread Out",
+        "conditions": "Agent 1 has full health (health_rate = 1.0000) but is slightly off-center (relative_x_to_map_center = 0.0000, relative_y_to_map_center = 0.0000). Spreading out can help avoid clumping and provide better coverage.",
+        "thought_process": "Agent 1 is already well-positioned, but spreading out can help distribute the team's presence across the map."
     },
     {
         "agentID": 2,
-        "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "skill": "Advance",
+        "conditions": "Agent 2 has full health (health_rate = 1.0000) and is slightly off-center (relative_x_to_map_center = 0.0000, relative_y_to_map_center = 0.0000). Advancing can help push forward towards the enemy positions.",
+        "thought_process": "Agent 2 is well-positioned and can benefit from advancing to engage the enemy more directly."
     },
     {
         "agentID": 3,
-        "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "skill": "Retreat",
+        "conditions": "Agent 3 has full health (health_rate = 1.0000) but is slightly off-center (relative_x_to_map_center = 0.0000, relative_y_to_map_center = 0.0000). Retreating might be necessary if the enemy is too strong at this moment.",
+        "thought_process": "Agent 3 is well-positioned but might need to retreat temporarily if the enemy poses a significant threat."
     },
     {
         "agentID": 4,
         "skill": "Focus Fire",
-        "conditions": "default assignment",
-        "thought_process": "default assignment"
+        "conditions": "Agent 4 has full health (health_rate = 1.0000) and is in the center of the map (relative_x_to_map_center = 0.2500, relative_y_to_map_center = 0.2500). It is in a good position to focus fire on enemies.",
+        "thought_process": "Agent 4 is in the center of the map and has full health, making it an ideal candidate for focusing fire on nearby enemies."
     }
 ]

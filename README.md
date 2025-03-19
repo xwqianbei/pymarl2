@@ -162,6 +162,10 @@ python3 src/main.py --config=llm_qmix --env-config=sc2 with env_args.map_name=2s
 ```
 
 ```shell
+python3 src/main.py --config=llm_qmix --env-config=sc2 with env_args.map_name=5m_vs_6m
+```
+
+```shell
 # For Difficulty-Enhanced Predator-Prey
 python3 src/main.py --config=qmix_predator_prey --env-config=stag_hunt with env_args.map_name=stag_hunt
 ```
