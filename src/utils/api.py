@@ -97,9 +97,9 @@ class Call_API(object):
         try:
             res = self.gpt_json_load(response)
 
-            save_path = 'src/dataset/2s3z_model_output.jsonl'
-            with open(save_path, 'a', encoding='utf-8') as f:
-                f.write(json.dumps(res, ensure_ascii=False) + '\n')
+            # save_path = 'src/dataset/2s3z_model_output.jsonl'
+            # with open(save_path, 'a', encoding='utf-8') as f:
+            #     f.write(json.dumps(res, ensure_ascii=False) + '\n')
 
             n_agent_res = []
             for id, agent_res in enumerate(res, start=0):
