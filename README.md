@@ -13,6 +13,9 @@
 
 ## Installation instructions
 
+Download the Bge-m3 model for modelscope 
+https://www.modelscope.cn/models/BAAI/bge-base-en-v1.5
+
 Add bge-embedding path:
 ```text
 # src/config/algs/llm_qmix.yaml
